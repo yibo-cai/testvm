@@ -1,0 +1,50 @@
+Test steps
+==========
+
+download images
+---------------
+$ ./0-downloadimg.sh
+Image files are about 4G, it costs some time to download and extract.
+
+start vm
+--------
+$ ./1-startvm.sh
+
+Started VM will occupy current console. Open another console for below steps.
+
+loop test
+---------
+$ ./2-testvm.sh
+
+destroy vm
+----------
+$ ./3-destroyvm.sh
+
+
+Troubleshooting
+===============
+
+drop to UEFI shell when run 1-startvm.sh
+-----------------------------------------
+Run below commands to boot
+Shell> bcfg boot add 0 fs0:\EFI\debian\grubaa64.efi debian
+Shell> reset
+
+to login VM
+------------
+login: linux
+password: arm
+
+
+Others
+======
+
+test VM
+-------
+Below commands are added to /etc/rc.local of VM
+
+- "nc -lvp 4444 -e /sbin/reboot > /dev/null 2>&1 &"
+   To trigger VM reboot easily
+
+- "while [ true ]; do :; done &"
+   To add some loads to VM
