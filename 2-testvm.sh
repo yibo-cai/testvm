@@ -35,7 +35,7 @@ function check_vm()
 function reboot_vm()
 {
     echo "Rebooting VM"
-    nc $IP 4444 # VM runs "nc -lvp 4444 -e /sbin/reboot"
+    nc $IP 4444 -w 3 # VM runs "nc -lvp 4444 -e /sbin/reboot"
     [ $? != 0 ] && { echo "FAILED"; exit 3; }
     i=0
     while [ $i -lt 8 ]; do
